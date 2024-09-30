@@ -1,9 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
+import env from "dotenv"
 
 const app = express();
 const port = 3000;
+env.config()
+const API_URL = process.env.API_URL;
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -15,7 +18,7 @@ app.post("/submit", async(req, res) => {
   const currentPage = parseInt(req.body["page"]) || 1;
   
   try {
-    var response = await axios.get(`https://api.jikan.moe/v4/anime?q=${animeName}&page=${currentPage}`);
+    var response = await axios.get(`${API_URL}?q=${animeName}&page=${currentPage}`);
     var result = response.data;
     const totalPages = result.pagination.last_visible_page;
     const pageNumbers = [];

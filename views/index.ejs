@@ -187,7 +187,7 @@
         <div class="row">
           <% data.data.forEach(function(anime) { %>
             <div class="col-md-4">
-              <a href="/anime/<%= anime.mal_id %>">
+              <a style="text-decoration: none;" href="/anime/<%= anime.mal_id %>">
                 <div class="result-box mt-5">
                   <img src="<%= anime.images.jpg.image_url %>" alt="<%= anime.title %>">
                   <h3>
