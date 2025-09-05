@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+
+  <div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 83vh;">
+      <h2 class="mb-4" style="color: white;">My Favorites</h2>
+
+      <div class="row">
+        <% if (favorites.length===0) { %>
+          <p>You haven't added any favorites yet.</p>
+          <% } else { %>
+            <% favorites.forEach(fav=> { %>
+              <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                  <img src="<%= fav.anime_image %>" class="card-img-top" alt="<%= fav.anime_title %>">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <%= fav.anime_title %>
+                    </h5>
+                    <form action="/favorites/remove" method="POST">
+                      <input type="hidden" name="animeId" value="<%= fav.anime_id %>">
+                      <button type="submit" class="btn btn-danger w-100">Remove</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+                <% } %>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer-custom d-flex flex-wrap justify-content-center align-items-center py-4 mt-5">
+    <span class="text-light">© 2024 Anime Explorer, All rights reserved</span>
+  </footer>
+
+  <%- include('partials/footer') %>

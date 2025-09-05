@@ -10,8 +10,9 @@
 
   <div class="container mt-5">
     <h1><%= anime.title %></h1>
-    <img src="<%= anime.images.jpg.large_image_url %>" alt="<%= anime.title %>" class="img-fluid">
-    <p><strong>IMDb:</strong><%= anime.score %>/10</p>
+    <img src="<%= anime.images.jpg.large_image_url %>" alt="<%= anime.title %>" class="img-fluid mb-3">
+
+    <p><strong>IMDb:</strong> <%= anime.score %>/10</p>
     <p><strong>Type:</strong> <%= anime.type %></p>
     <p><strong>Number of Episodes:</strong> <%= anime.episodes %></p>
     <p><strong>Status:</strong> <%= anime.status %></p>
@@ -21,13 +22,22 @@
     
     <p><strong>Genres:</strong>
       <% anime.genres.forEach(genre => { %>
-        <span><%= genre.name %>, </span>
+        <span><%= genre.name %><% if (anime.genres.indexOf(genre) !== anime.genres.length - 1) { %>, <% } %></span>
       <% }); %>
     </p>
+
     <% anime.synopsis = (anime.synopsis === null) ? "No description" : anime.synopsis; %>
     <p><strong>Synopsis:</strong> <%= anime.synopsis %></p>
-    
-    <a href="/" class="btn btn-primary mt-4">Back to Search</a>
+
+    <!-- Add to Favorites button -->
+    <form action="/favorites/add" method="POST" class="mt-4">
+      <input type="hidden" name="animeId" value="<%= anime.mal_id %>">
+      <input type="hidden" name="animeTitle" value="<%= anime.title %>">
+      <input type="hidden" name="animeImage" value="<%= anime.images.jpg.large_image_url %>">
+      <button type="submit" class="btn btn-dark w-100">+ Add to Favorites</button>
+    </form>
+
+    <a href="/" class="btn btn-primary mt-3">Back to Search</a>
   </div>
 
 </body>
